@@ -1,11 +1,11 @@
 package SampleApp
 
 import (
-	"github.com/gorilla/mux"
-	"SampleApp/app"
-	"os"
 	"fmt"
+	"github.com/gorilla/mux"
+	"github.com/rjohnt/SampleGoApp/app"
 	"net/http"
+	"os"
 )
 
 func main() {
