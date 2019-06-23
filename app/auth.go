@@ -49,9 +49,9 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		}
 
 		tokenPart := splitTokenHeaders[1]
-		token := &models.Token{}
+		tokenStruct := &models.Token{}
 
-		token, err := jwt.ParseWithClaims(tokenPart, token, func(token *jwt.Token) (interface{}, error) {
+		token, err := jwt.ParseWithClaims(tokenPart, tokenStruct, func(token *jwt.Token) (interface{}, error) {
 			return []byte(os.Getenv("token_password")), nil
 		})
 
@@ -74,8 +74,8 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		}
 
 		// All checks good, proceed with request.
-		fmt.Sprintf("User %", token.Username)
-		ctx := context.WithValue(request.Context(), "user", token.UserId)
+		fmt.Sprintf("User %", tokenStruct.UserId)
+		ctx := context.WithValue(request.Context(), "user", tokenStruct.UserId)
 		request = request.WithContext(ctx)
 		next.ServeHTTP(writer, request)
 	})
