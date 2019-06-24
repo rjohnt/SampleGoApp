@@ -32,7 +32,7 @@ func (contact *Contact) Validate() (map[string]interface{}, bool) {
 	return utils.Message(true, "success"), true
 }
 
-func (contact *Contact) Create() (map[string]interface{}) {
+func (contact *Contact) Create() map[string]interface{} {
 	if response, ok := contact.Validate(); !ok {
 		return response
 	}
