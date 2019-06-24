@@ -20,7 +20,7 @@ var CreateAccount = func(writer http.ResponseWriter, request *http.Request) {
 }
 
 var Authenticate = func(writer http.ResponseWriter, request *http.Request) {
-	account := models.Account{}
+	account := &models.Account{}
 	err := json.NewDecoder(request.Body).Decode(account)
 	if err != nil {
 		utils.Respond(writer, utils.Message(false, "Invalid request."))
