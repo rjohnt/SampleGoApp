@@ -2,11 +2,9 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"github.com/rjohnt/SampleGoApp/models"
 	"github.com/rjohnt/SampleGoApp/utils"
 	"net/http"
-	"strconv"
 )
 
 var CreateContact = func(writer http.ResponseWriter, request *http.Request) {
@@ -24,15 +22,9 @@ var CreateContact = func(writer http.ResponseWriter, request *http.Request) {
 	utils.Respond(writer, response)
 }
 
-var GetContactsFor = func(writer http.ResponseWriter, request *http.Request) {
-	params := mux.Vars(request)
-	id, err := strconv.Atoi(params["id"])
-	if err != nil {
-		utils.Respond(writer, utils.Message(false, "There was an error in your request."))
-		return
-	}
-
-	data := models.GetContacts(uint(id))
+var GetContacts = func(writer http.ResponseWriter, request *http.Request) {
+	userId := request.Context().Value("user").(uint)
+	data := models.GetContacts(userId)
 	response := utils.Message(true, "success")
 	response["data"] = data
 	utils.Respond(writer, response)
