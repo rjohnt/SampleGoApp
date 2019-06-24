@@ -44,7 +44,7 @@ func (contact *Contact) Create() (map[string]interface{}) {
 	return response
 }
 
-func GetContact(id uint) []*Contact {
+func GetContacts(id uint) []*Contact {
 	contacts := make([]*Contact, 0)
 	err := GetDB().Table("contacts").Where("id = ?", id).Find(&contacts).Error
 	if err != nil {
